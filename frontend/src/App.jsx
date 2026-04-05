@@ -1,121 +1,87 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { Routes, Route, Link } from 'react-router-dom';
+import Schedule from './Schedule';
+import Patients from './Patients';
+import Inventory from './Inventory';
 
-function App() {
-  const [count, setCount] = useState(0)
+const LandingPage = () => (
+  <div style={styles.container}>
+    <h1 style={styles.title}>St. Albatross Management System</h1>
+    <p style={styles.subtitle}>Hospital Administration & Resource Tracking</p>
+    
+    <div style={styles.buttonGrid}>
+      <Link to="/patients" style={styles.navCard}>
+        <h3>Patients</h3>
+        <p>View and manage patient records</p>
+      </Link>
 
+      <Link to="/schedule" style={styles.navCard}>
+        <h3>Schedule</h3>
+        <p>View appointment calendar</p>
+      </Link>
+
+      <Link to="/inventory" style={styles.navCard}>
+        <h3>Inventory</h3>
+        <p>Track medical supplies and stock</p>
+      </Link>
+    </div>
+  </div>
+);
+
+const App = () => {
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
+    <div style={{ fontFamily: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif' }}>
+      <nav style={styles.navbar}>
+        <Link to="/" style={styles.navLogo}>St. Albatross</Link>
         <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
+          <Link to="/patients" style={styles.navLink}>Patients</Link>
+          <Link to="/schedule" style={styles.navLink}>Schedule</Link>
+          <Link to="/inventory" style={styles.navLink}>Inventory</Link>
         </div>
-        <button
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+      </nav>
 
-      <div className="ticks"></div>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/schedule" element={<Schedule />} />
+        <Route path="/patients" element={<Patients />} />
+        <Route path="/inventory" element={<Inventory />} />
+      </Routes>
+    </div>
+  );
+};
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+const styles = {
+  navbar: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    padding: '1rem 2rem',
+    background: '#2c3e50',
+    color: 'white',
+    alignItems: 'center'
+  },
+  navLogo: { color: 'white', fontWeight: 'bold', textDecoration: 'none', fontSize: '1.2rem' },
+  navLink: { color: '#ecf0f1', marginLeft: '20px', textDecoration: 'none' },
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '80vh',
+    textAlign: 'center'
+  },
+  title: { fontSize: '2.5rem', color: '#2c3e50', marginBottom: '10px' },
+  subtitle: { fontSize: '1.1rem', color: '#7f8c8d', marginBottom: '40px' },
+  buttonGrid: { display: 'flex', gap: '20px', flexWrap: 'wrap', justifyContent: 'center' },
+  navCard: {
+    width: '200px',
+    padding: '20px',
+    textDecoration: 'none',
+    color: '#2c3e50',
+    border: '1px solid #ddd',
+    borderRadius: '12px',
+    transition: '0.3s',
+    boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+    backgroundColor: '#fff'
+  }
+};
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
-}
-
-export default App
+export default App;
